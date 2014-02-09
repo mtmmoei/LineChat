@@ -18,7 +18,7 @@ public class UserInfo implements Comparable<String> {
 		return lastMsgNo;
 	}
 
-	public int updateMsgNo(int msgNo) {
+	public int setLastMsgNo(int msgNo) {
 		int oldNo = lastMsgNo;
 		lastMsgNo = msgNo;
 		return oldNo;
@@ -36,4 +36,4 @@ public class UserInfo implements Comparable<String> {
 	public void setOnline(boolean b) {
 		online = b;
 	}
-}
+}	
