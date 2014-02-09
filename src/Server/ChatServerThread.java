@@ -9,7 +9,8 @@ public class ChatServerThread extends Thread {
 	private int ID = -1;
 	private DataInputStream streamIn = null;
 	private DataOutputStream streamOut = null;
-	private String userID;
+	private String userID="";
+	private String groupID="";
 	
 	public ChatServerThread(ChatServer _server, Socket _socket) {
 		super();
@@ -31,6 +32,23 @@ public class ChatServerThread extends Thread {
 
 	public int getID() {
 		return ID;
+	}
+
+	
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+
+	public String getGroupID() {
+		return groupID;
+	}
+
+	public void setGroupID(String groupID) {
+		this.groupID = groupID;
 	}
 
 	public void run() {

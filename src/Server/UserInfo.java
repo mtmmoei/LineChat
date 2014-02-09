@@ -1,43 +1,44 @@
 package Server;
 
-import java.io.*;
 import java.util.ArrayList;
 
 public class UserInfo implements Comparable<UserInfo> {
-	// private ArrayList<String> messageOut;
 	private String userID;
-	private int lastMsgNo;
-	private boolean online;
+	private ArrayList<String> groupID=new ArrayList<String>();
 
-	public UserInfo(String uID) {
-		userID = uID.toLowerCase();
-		online = false;
+	public UserInfo(String ID) {
+		userID = ID.toLowerCase();
 	}
-	
-	public String getUID(){
+
+	public ArrayList<String> getGroupList() {
+		return groupID;
+	}
+
+	public String getUserID() {
 		return userID;
 	}
-
-	public int getLastMsgNo() {
-		return lastMsgNo;
+	public void addGroup(String gID){
+		 groupID.add(gID);
 	}
-
-	public int setLastMsgNo(int msgNo) {
-		int oldNo = lastMsgNo;
-		lastMsgNo = msgNo;
-		return oldNo;
+	public void deleteGroup(String gID){
+		 groupID.remove(gID);
 	}
-
-	public void setOnline(boolean b) {
-		online = b;
-	}
-
 	@Override
 	public int compareTo(UserInfo o) {
 		// TODO Auto-generated method stub
-		if (userID.equals(o.getUID().toLowerCase()))
-			return 1;
-		else
+		if (userID.equals(o.getUserID().toLowerCase()))
 			return 0;
+		else {
+			return 1;
+		}
 	}
-}	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String list="";
+		for(int i=0;i<groupID.size();i++){
+			list+= groupID.get(i)+" ";
+		}
+		return list;
+	}
+}
