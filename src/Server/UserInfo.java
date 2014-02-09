@@ -3,7 +3,7 @@ package Server;
 import java.io.*;
 import java.util.ArrayList;
 
-public class UserInfo implements Comparable<String> {
+public class UserInfo implements Comparable<UserInfo> {
 	// private ArrayList<String> messageOut;
 	private String userID;
 	private int lastMsgNo;
@@ -12,6 +12,10 @@ public class UserInfo implements Comparable<String> {
 	public UserInfo(String uID) {
 		userID = uID.toLowerCase();
 		online = false;
+	}
+	
+	public String getUID(){
+		return userID;
 	}
 
 	public int getLastMsgNo() {
@@ -24,16 +28,16 @@ public class UserInfo implements Comparable<String> {
 		return oldNo;
 	}
 
+	public void setOnline(boolean b) {
+		online = b;
+	}
+
 	@Override
-	public int compareTo(String o) {
+	public int compareTo(UserInfo o) {
 		// TODO Auto-generated method stub
-		if (userID.equals(o.toLowerCase()))
+		if (userID.equals(o.getUID().toLowerCase()))
 			return 1;
 		else
 			return 0;
-	}
-
-	public void setOnline(boolean b) {
-		online = b;
 	}
 }	

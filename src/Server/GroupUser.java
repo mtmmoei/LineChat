@@ -5,17 +5,20 @@ import java.util.Vector;
 
 import Message.Message;
 
-public class GroupUser {
+public class GroupUser implements Comparable<GroupUser>{
 	private String groupID;
 	private ArrayList<UserInfo> userInfos;
 	private ArrayList<Message> messages;
 	private int totalUser;
 	private int lastStoreMsgNo;
 
-	public void GroupUser(String gID) {
-		groupID = gID;
+	public GroupUser(String gID) {
+		groupID = gID.toLowerCase();
 		totalUser = 0;
 		lastStoreMsgNo = 0;
+	}
+	public String getGID(){
+		return groupID;
 	}
 
 	public void joinGroup(String uID) {
@@ -44,5 +47,14 @@ public class GroupUser {
 		if(user.getLastMsgNo()> lastStoreMsgNo+ messages.size())
 			return;
 					
+	}
+
+	@Override
+	public int compareTo(GroupUser o) {
+		// TODO Auto-generated method stub
+		if( groupID.equals(o.getGID().toLowerCase()))
+			return 0;
+		else
+			return -1;
 	}
 }

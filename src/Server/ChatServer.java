@@ -1,11 +1,14 @@
 package Server;
 
 import java.net.*;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.io.*;
 
 public class ChatServer implements Runnable {
 
 	private ChatServerThread clients[] = new ChatServerThread[50];
+	private ArrayList<GroupUser> group;
 	private ServerSocket server = null;
 	private Thread thread = null;
 	private int clientCount = 0;
@@ -56,11 +59,40 @@ public class ChatServer implements Runnable {
 		return -1;
 	}
 
-	public synchronized void handle(int ID, String input) {
-		if (input.equals(".bye")) {
+	public synchronized void handle(String userID, int ID, String input) {
+		StringTokenizer in = new StringTokenizer(input," ");
+		String command = in.nextToken();
+		if (command.equals(".bye")) {
 			clients[findClient(ID)].send(".bye");
 			remove(ID);
-		} else
+		}
+		else if (command.equals(".create")){//.createGroup gID
+			GroupUser g = new GroupUser(in.nextToken());
+			group.add(g);
+			g.joinGroup(userID);
+		}
+		else if (command.equals(".join")){//.joinGroup gID
+			String gID = in.nextToken();
+			GroupUser g = group.get(group.indexOf(new GroupUser(gID)));
+			g.joinGroup(userID);
+		}
+		else if ( command.equals(".leave")){
+			String gID = in.nextToken();
+			GroupUser g = group.get(group.indexOf(new GroupUser(gID)));
+			g.leaveGroup(userID);
+		}
+		else if ( command.equals(".enter")){
+			String gID = in.nextToken();
+			GroupUser g = group.get(group.indexOf(new GroupUser(gID)));
+			g.enterGroup(userID);
+		}
+		else if ( command.equals(".exit")){
+			String gID = in.nextToken();
+			GroupUser g = group.get(group.indexOf(new GroupUser(gID)));
+			g.enterGroup(userID);
+		}
+		else
+			
 			for (int i = 0; i < clientCount; i++)
 				clients[i].send(ID + ": " + input);
 	}
@@ -97,14 +129,14 @@ public class ChatServer implements Runnable {
 		} else
 			System.out.println("Client refused: maximum " + clients.length
 					+ " reached.");
-	}	
+	}
 
 	public static void main(String args[]) {
 		ChatServer server = null;
-//		if (args.length != 1)
-//			System.out.println("Usage: java ChatServer port");
-//		else
-//			server = new ChatServer(Integer.parseInt(args[0]));
+		// if (args.length != 1)
+		// System.out.println("Usage: java ChatServer port");
+		// else
+		// server = new ChatServer(Integer.parseInt(args[0]));
 		server = new ChatServer(Integer.parseInt("5555"));
 	}
 }
