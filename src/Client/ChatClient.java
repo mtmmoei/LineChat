@@ -41,18 +41,6 @@ public class ChatClient implements Runnable{
 		if (msg.equals(".bye")) {
 			System.out.println("Good bye. Press RETURN to exit ...");
 			stop();
-		} if (msg.equals(".login")) {
-			System.out.println("Login Success.");
-		} if (msg.equals(".listGroup")) {
-			System.out.print("Your group list : ");
-		} if (msg.equals(".enterGroup")) {
-			System.out.print("Enter group : ");
-		} if (msg.equals(".exitGroup")) {
-			System.out.print("Exit group : ");
-		} if (msg.equals(".createGroup")) {
-			System.out.print("Create group success.");
-		} if (msg.equals(".leaveGroup")) {
-			System.out.print("Leave group : ");
 		} else
 			System.out.println(msg);
 	}
