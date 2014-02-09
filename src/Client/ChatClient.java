@@ -11,7 +11,6 @@ public class ChatClient implements Runnable{
 	private DataInputStream console = null;
 	private DataOutputStream streamOut = null;
 	private ChatClientThread client = null;
-	private User user = null;
 
 	public ChatClient(String serverName, int serverPort) {
 		System.out.println("Establishing connection. Please wait ...");
